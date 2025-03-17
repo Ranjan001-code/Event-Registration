@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Registration</title>
+    <link rel="stylesheet" href="registration.css">
+
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+          <img
+            src="images/DALL·E 2025-01-30 20.39.01 - A modern, sleek logo for an event registration platform. The design should feature a checkmark integrated into a calendar icon, symbolizing successful.webp"
+            alt="Real Estate Logo"
+          />
+        </div>
+        <div class="options">
+          <a href="index.html">Home</a>
+          <a href="#">About</a>
+          <a href="#">Contact</a>
+        </div>
+      </header>
+  
+
+    <div class="container">
+        <h1>Event Registration</h1>
+        <form id="registrationForm">
+            <div class="form-group">
+                <label for="fullName">Full Name *</label>
+                <input type="text" id="fullName" name="fullName" required>
+                <div class="error" id="nameError">Please enter your full name</div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address *</label>
+                <input type="email" id="email" name="email" required>
+                <div class="error" id="emailError">Please enter a valid email address</div>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number *</label>
+                <input type="tel" id="phone" name="phone" required>
+                <div class="error" id="phoneError">Please enter a valid phone number</div>
+            </div>
+
+            <div class="form-group">
+                <label for="ticketType">Ticket Type *</label>
+                <select id="ticketType" name="ticketType" required>
+                    <option value="">Select a ticket type</option>
+                    <option value="regular">Regular Ticket</option>
+                    <option value="vip">VIP Ticket</option>
+                    <option value="student">Student Ticket</option>
+                </select>
+                <div class="error" id="ticketError">Please select a ticket type</div>
+            </div>
+
+            <div class="form-group">
+                <label for="specialRequirements">Special Requirements</label>
+                <textarea id="specialRequirements" name="specialRequirements"></textarea>
+            </div>
+
+            <button type="submit">Register Now</button>
+        </form>
+
+        <div class="success-message" id="successMessage">
+            Thank you for registering! We'll send the confirmation details to your email shortly.
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            document.querySelectorAll('.error').forEach(error => {
+                error.style.display = 'none';
+            });
+
+            let hasError = false;
+
+            const fullName = document.getElementById('fullName').value;
+            if (!fullName || fullName.trim().length < 3) {
+                document.getElementById('nameError').style.display = 'block';
+                hasError = true;
+            }
+
+            const email = document.getElementById('email').value;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                document.getElementById('emailError').style.display = 'block';
+                hasError = true;
+            }
+
+            const phone = document.getElementById('phone').value;
+            const phoneRegex = /^\+?[\d\s-]{10,}$/;
+            if (!phoneRegex.test(phone)) {
+                document.getElementById('phoneError').style.display = 'block';
+                hasError = true;
+            }
+
+            const ticketType = document.getElementById('ticketType').value;
+            if (!ticketType) {
+                document.getElementById('ticketError').style.display = 'block';
+                hasError = true;
+            }
+
+            if (!hasError) {
+                document.getElementById('registrationForm').style.display = 'none';
+                document.getElementById('successMessage').style.display = 'block';
+
+                const formData = {
+                    fullName,
+                    email,
+                    phone,
+                    ticketType,
+                    specialRequirements: document.getElementById('specialRequirements').value
+                };
+                console.log('Form submitted:', formData);
+
+                
+
+            }
+        });
+    </script>
+</body>
+</html>
